@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'main.dart';
 import 'settings_page_view.dart';
 import 'profile_page_view.dart';
 import 'list_page_view.dart';

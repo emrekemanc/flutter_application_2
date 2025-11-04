@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app_coordinator.dart';
+import 'package:flutter_application_2/app_theme.dart';
 import 'package:flutter_application_2/custom_button.dart';
 
 void main() {
@@ -13,6 +14,9 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: AppTheme.lightTheme,
+      darkTheme: AppTheme.darkTheme,
+      themeMode: ThemeMode.system,
       navigatorKey: appcoordinator.navigatorKey,
       initialRoute: appcoordinator.initialRoute,
       routes: appcoordinator.routes,
@@ -25,6 +29,7 @@ class MainApp extends StatelessWidget {
                 children: [
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
+                    spacing: 20,
                     children: [
                       CustomIconButton(
                         icon: Icons.settings,
