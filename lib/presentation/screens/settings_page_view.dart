@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_application_2/app_coordinator.dart';
-import 'package:flutter_application_2/custom_button.dart';
+import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
+import 'package:flutter_application_2/presentation/customs/custom_button.dart';
 
 class Settingspageview extends StatelessWidget {
   final appcoordinator = Appcoordinator();
