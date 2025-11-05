@@ -1,6 +1,5 @@
 import 'package:flutter_application_2/presentation/screens/initial_screen_view.dart';
 import 'package:flutter_application_2/presentation/screens/intro_screen_view.dart';
-
 import '../../presentation/screens/home_page_view.dart';
 import '../../presentation/screens/splash_screen_view.dart';
 import '../../presentation/screens/settings_page_view.dart';
