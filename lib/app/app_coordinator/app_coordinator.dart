@@ -12,7 +12,7 @@ class Appcoordinator {
   Appcoordinator._internal();
 
   final GoRouter router = GoRouter(
-    initialLocation: RoutePaths.splash,
+    initialLocation: RoutePaths.home,
     routes: <GoRoute>[
       GoRoute(
         path: RoutePaths.home,
