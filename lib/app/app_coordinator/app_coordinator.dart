@@ -1,5 +1,6 @@
 import 'package:flutter_application_2/presentation/screens/initial_screen_view.dart';
 import 'package:flutter_application_2/presentation/screens/intro_screen_view.dart';
+import 'package:flutter_application_2/presentation/screens/login/login_page_View.dart';
 import '../../presentation/screens/home_page_view.dart';
 import '../../presentation/screens/splash_screen_view.dart';
 import '../../presentation/screens/settings_page_view.dart';
@@ -14,7 +15,7 @@ class Appcoordinator {
   Appcoordinator._internal();
 
   final GoRouter router = GoRouter(
-    initialLocation: RoutePaths.intro,
+    initialLocation: RoutePaths.login,
     routes: <GoRoute>[
       GoRoute(
         path: RoutePaths.home,
@@ -44,6 +45,10 @@ class Appcoordinator {
         path: RoutePaths.initial,
         builder: (context, state) => InitialScreen(),
       ),
+      GoRoute(
+        path: RoutePaths.login,
+        builder: (context, state) => LoginPageView(),
+      ),
     ],
   );
 
@@ -69,6 +74,10 @@ class Appcoordinator {
 
   Future<void> navigateToIntro() async {
     await router.push(RoutePaths.intro);
+  }
+
+  Future<void> navigateToLogin() async {
+    await router.push(RoutePaths.login);
   }
 
   void goBack() {

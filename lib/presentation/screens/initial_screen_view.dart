@@ -24,7 +24,7 @@ class _InitialScreenState extends State<InitialScreen> {
 
     if (mounted) {
       if (seen) {
-        appcoordinator.navigateToMain();
+        appcoordinator.navigateToLogin();
       } else {
         await preferences.setBool('seen', true);
         appcoordinator.navigateToIntro();

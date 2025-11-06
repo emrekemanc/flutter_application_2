@@ -77,14 +77,7 @@ class _IntroScreenView extends State<IntroScreenView> {
                     ),
                   ),
                   SizedBox(height: 15.0),
-                  Text(
-                    introPage['description'],
-                    textAlign: TextAlign.center,
-                    style: const TextStyle(
-                      color: Colors.white70,
-                      fontSize: 18.0,
-                    ),
-                  ),
+                  _descriptionText(introPage['description']),
                 ],
               ),
             ),
@@ -108,6 +101,14 @@ class _IntroScreenView extends State<IntroScreenView> {
           ),
         ),
       ),
+    );
+  }
+
+  Widget _descriptionText(String description) {
+    return Text(
+      description,
+      textAlign: TextAlign.center,
+      style: const TextStyle(color: Colors.white70, fontSize: 18.0),
     );
   }
 }

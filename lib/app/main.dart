@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/app/app_theme.dart';
-import 'package:shared_preferences/shared_preferences.dart';
 
 void main() {
   runApp(MainApp());
