@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_elevated_button.dart';
 import 'package:flutter_application_2/presentation/customs/custom_textField.dart';
 import 'package:flutter_application_2/presentation/screens/login/login_page_ViewModel.dart';
@@ -16,7 +17,7 @@ class _LoginPageView extends State<LoginPageView> {
   @override
   void initState() {
     super.initState();
-    _viewModel = LoginPageViewModel();
+    _viewModel = LoginPageViewModel(Appcoordinator());
   }
 
   @override
@@ -67,7 +68,7 @@ class _LoginPageView extends State<LoginPageView> {
             text: "Login",
             onPressed: () {
               if (_formKey.currentState!.validate()) {
-                _viewModel.goToHome();
+                _viewModel.login();
               }
             },
           ),

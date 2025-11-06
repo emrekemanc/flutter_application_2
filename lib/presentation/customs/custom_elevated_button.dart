@@ -2,14 +2,13 @@ import 'package:flutter/material.dart';
 
 class CustomElevatedButton extends StatelessWidget {
   final String text;
-  final VoidCallback?
-  onPressed; // Fonksiyon tipi değişebilir (null olabilir veya olmayabilir)
+  final VoidCallback onPressed;
   final Color backgroundColor;
   final Color foregroundColor;
 
   const CustomElevatedButton({
     required this.text,
-    this.onPressed,
+    required this.onPressed,
     this.backgroundColor = const Color.fromARGB(255, 27, 43, 223),
     this.foregroundColor = Colors.white,
   });

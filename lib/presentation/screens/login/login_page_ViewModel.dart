@@ -1,5 +1,3 @@
-import 'dart:ffi';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/core/utils/validator_utils.dart';
@@ -7,41 +5,48 @@ import 'package:flutter_application_2/domain/entity/login_model.dart';
 
 class LoginPageViewModel extends ChangeNotifier {
   final LoginData _formData = LoginData();
-  final Appcoordinator appcoordinator = Appcoordinator();
+  final Appcoordinator _appCoordinator;
+
   String? _errorMessage;
+
+  LoginPageViewModel(this._appCoordinator);
+
   LoginData get formData => _formData;
   String? get errorMessage => _errorMessage;
 
   void setEmail(String value) {
-    _formData.email = value;
+    _formData.email = value.trim();
   }
 
   void setPassword(String value) {
     _formData.password = value;
   }
 
-  void goToHome() {
-    appcoordinator.navigateToMain();
-  }
-
   String? validateEmail(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Email must not be empty';
-    }
-
-    if (!ValidatorUtils.isValidEmail(value)) {
-      return 'Please enter a valid email address';
-    }
-    return null;
+    return ValidatorUtils.validateEmail(value);
   }
 
   String? validatePassword(String? value) {
-    if (value == null || value.isEmpty) {
-      return 'Password must not be empty';
+    return ValidatorUtils.validatePassword(value);
+  }
+
+  Future<void> login() async {
+    final emailError = validateEmail(_formData.email);
+    final passwordError = validatePassword(_formData.password);
+
+    if (emailError != null || passwordError != null) {
+      _errorMessage = emailError ?? passwordError;
+      notifyListeners();
+      return;
     }
-    if (!ValidatorUtils.isLengthValid(value, 6)) {
-      return 'Password must be 6 over characterr';
+
+    try {
+      await Future.delayed(const Duration(seconds: 1));
+      _errorMessage = null;
+      _appCoordinator.navigateToMain();
+    } catch (e) {
+      _errorMessage = 'Login failed. Please try again.';
+      notifyListeners();
     }
-    return null;
   }
 }

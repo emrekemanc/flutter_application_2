@@ -1,10 +1,15 @@
 class ValidatorUtils {
-  static bool isValidEmail(String email) {
-    final regex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-    return regex.hasMatch(email);
+  static String? validateEmail(String? value) {
+    if (value == null || value.isEmpty) return 'Email cannot be empty';
+    if (!RegExp(r'^[^@]+@[^@]+\.[^@]+').hasMatch(value)) {
+      return 'Invalid email address';
+    }
+    return null;
   }
 
-  static bool isLengthValid(String value, int minLength) {
-    return value.length >= minLength;
+  static String? validatePassword(String? value) {
+    if (value == null || value.isEmpty) return 'Password cannot be empty';
+    if (value.length < 6) return 'Password must be at least 6 characters long';
+    return null;
   }
 }
