@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/core/utils/validator_utils.dart';
-import 'package:flutter_application_2/domain/entity/login_model.dart';
+import 'package:flutter_application_2/domain/entities/login_model.dart';
 
 class LoginPageViewModel extends ChangeNotifier {
   final LoginData _formData = LoginData();
