@@ -3,9 +3,7 @@ import 'package:flutter_application_2/domain/entities/product_entitiy.dart';
 import 'package:flutter_application_2/domain/repositories/product_repository.dart';
 
 class ProductRepositoryImpl implements ProductRepository {
-  final FakestoreService _service;
-
-  ProductRepositoryImpl(this._service);
+  final FakestoreService _service = FakestoreService();
 
   @override
   Future<List<ProductEntitiy>> getAllProducts() async {

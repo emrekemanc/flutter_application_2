@@ -3,10 +3,7 @@ import 'package:flutter_application_2/domain/entities/post_entitiy.dart';
 import 'package:flutter_application_2/domain/repositories/post_repository.dart';
 
 class PostRepositoryImpl implements PostRepository {
-  final JsonplaceholderService _service;
-
-  PostRepositoryImpl(this._service);
-
+  final JsonplaceholderService _service = JsonplaceholderService();
   @override
   Future<List<PostEntitiy>> getPosts() async {
     final data = await _service.getPosts();

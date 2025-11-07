@@ -1,10 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/core/utils/validator_utils.dart';
+import 'package:flutter_application_2/data/repositorie_impls/user_repository_impl.dart';
 import 'package:flutter_application_2/domain/entities/login_entitiy.dart';
+import 'package:flutter_application_2/domain/repositories/user_repository.dart';
+import 'package:flutter_application_2/domain/usecases/user_usecases/create_user_usecase.dart';
+import 'package:flutter_application_2/domain/usecases/user_usecases/login_user_usecase.dart';
 
 class LoginPageViewModel extends ChangeNotifier {
   final LoginEntitiy _formData = LoginEntitiy();
+  final CreateUserUsecase _createUserUsecase = CreateUserUsecase(
+    UserRepositoryImpl(),
+  );
   final Appcoordinator _appCoordinator;
 
   String? _errorMessage;
@@ -43,7 +50,11 @@ class LoginPageViewModel extends ChangeNotifier {
     try {
       await Future.delayed(const Duration(seconds: 1));
       _errorMessage = null;
-      _appCoordinator.navigateToMain();
+      final response = await _createUserUsecase.call(
+        formData.email.toString(),
+        "dev",
+      );
+      print(response.name);
     } catch (e) {
       _errorMessage = 'Login failed. Please try again.';
       notifyListeners();

@@ -3,8 +3,9 @@ import 'package:flutter_application_2/domain/repositories/product_repository.dar
 
 class GetProductById {
   final ProductRepository repository;
-  final int id;
-  GetProductById(this.repository, this.id);
 
-  Future<ProductEntitiy> call() async => await repository.getProductById(id);
+  GetProductById(this.repository);
+
+  Future<ProductEntitiy> call(int id) async =>
+      await repository.getProductById(id);
 }

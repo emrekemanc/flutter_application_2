@@ -3,9 +3,7 @@ import 'package:flutter_application_2/domain/entities/user_entitiy.dart';
 import 'package:flutter_application_2/domain/repositories/user_repository.dart';
 
 class UserRepositoryImpl implements UserRepository {
-  final ReqresService _service;
-
-  UserRepositoryImpl(this._service);
+  final ReqresService _service = ReqresService();
 
   @override
   Future<UserEntitiy> createUser(String name, String job) async {

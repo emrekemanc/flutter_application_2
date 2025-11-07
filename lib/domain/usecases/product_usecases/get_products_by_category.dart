@@ -3,8 +3,8 @@ import 'package:flutter_application_2/domain/repositories/product_repository.dar
 
 class GetProductsByCategory {
   final ProductRepository repository;
-  final String category;
-  GetProductsByCategory(this.category, this.repository);
-  Future<List<ProductEntitiy>> call() async =>
+
+  GetProductsByCategory(this.repository);
+  Future<List<ProductEntitiy>> call(String category) async =>
       await repository.getProductsByCategory(category);
 }

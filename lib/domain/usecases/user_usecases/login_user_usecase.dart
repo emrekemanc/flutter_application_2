@@ -3,9 +3,7 @@ import 'package:flutter_application_2/domain/repositories/user_repository.dart';
 
 class LoginUserUsecase {
   final UserRepository repository;
-  final String email;
-  final String password;
-  LoginUserUsecase(this.repository, this.email, this.password);
-  Future<UserEntitiy> call() async =>
+  LoginUserUsecase(this.repository);
+  Future<UserEntitiy> call(String email, String password) async =>
       await repository.loginUser(email, password);
 }

@@ -6,7 +6,10 @@ class DioClient {
           BaseOptions(
             connectTimeout: Duration(seconds: 10),
             receiveTimeout: Duration(seconds: 10),
-            headers: {'Accept': 'application/json'},
+            headers: {
+              'Accept': 'application/json',
+              'x-api-key': 'reqres-free-v1',
+            },
           ),
         )
         ..interceptors.add(
