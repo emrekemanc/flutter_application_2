@@ -1,6 +1,3 @@
-import 'dart:developer';
-import 'package:flutter/foundation.dart';
-
 class UserEntitiy {
   final int id;
   final String name;
