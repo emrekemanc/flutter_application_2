@@ -1,18 +1,17 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/core/utils/validator_utils.dart';
-import 'package:flutter_application_2/domain/entities/login_entitie.dart';
-import 'package:flutter_application_2/domain/entities/user_entitie.dart';
+import 'package:flutter_application_2/domain/entities/login_entitiy.dart';
 
 class LoginPageViewModel extends ChangeNotifier {
-  final LoginEntitie _formData = LoginEntitie();
+  final LoginEntitiy _formData = LoginEntitiy();
   final Appcoordinator _appCoordinator;
 
   String? _errorMessage;
 
   LoginPageViewModel(this._appCoordinator);
 
-  LoginEntitie get formData => _formData;
+  LoginEntitiy get formData => _formData;
   String? get errorMessage => _errorMessage;
 
   void setEmail(String value) {

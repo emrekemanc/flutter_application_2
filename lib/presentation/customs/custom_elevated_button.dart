@@ -7,6 +7,7 @@ class CustomElevatedButton extends StatelessWidget {
   final Color foregroundColor;
 
   const CustomElevatedButton({
+    super.key,
     required this.text,
     required this.onPressed,
     this.backgroundColor = const Color.fromARGB(255, 27, 43, 223),

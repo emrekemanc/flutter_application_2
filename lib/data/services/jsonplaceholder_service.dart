@@ -9,11 +9,4 @@ class JsonplaceholderService {
     );
     return response.data;
   }
-
-  Future<Map<String, dynamic>> getUset(int id) async {
-    final response = await _dio.get(
-      'https://jsonplaceholder.typicode.com/users/$id',
-    );
-    return response.data;
-  }
 }
