@@ -13,6 +13,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
+      supportedLocales: const [Locale('en', 'US'), Locale('tr', 'TR')],
       routerConfig: appcoordinator.router,
       theme: AppTheme.lightTheme,
       darkTheme: AppTheme.darkTheme,

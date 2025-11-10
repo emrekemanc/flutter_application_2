@@ -3,6 +3,8 @@ import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_elevated_button.dart';
 import 'package:flutter_application_2/presentation/customs/custom_textField.dart';
 import 'package:flutter_application_2/presentation/screens/login/login_page_ViewModel.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
+import 'package:form_builder_validators/form_builder_validators.dart';
 
 class LoginPageView extends StatefulWidget {
   const LoginPageView({super.key});
@@ -12,8 +14,9 @@ class LoginPageView extends StatefulWidget {
 }
 
 class _LoginPageView extends State<LoginPageView> {
-  final _formKey = GlobalKey<FormState>();
+  final _formKey = GlobalKey<FormBuilderState>();
   late final LoginPageViewModel _viewModel;
+
   @override
   void initState() {
     super.initState();
@@ -49,28 +52,70 @@ class _LoginPageView extends State<LoginPageView> {
     );
   }
 
+  String? _emailErrorText;
+  String? _passwordErrorText;
   Widget _loginForm() {
-    return Form(
+    return FormBuilder(
       key: _formKey,
+
       child: Column(
         children: [
-          CustomTextField(
-            labelText: "e_mail",
-            onChanged: _viewModel.setEmail,
-            validator: _viewModel.validateEmail,
+          FormBuilderTextField(
+            name: 'Email',
+
+            decoration: InputDecoration(
+              labelText: 'Email',
+              errorText: _emailErrorText,
+            ),
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+              FormBuilderValidators.email(),
+            ]),
           ),
-          CustomTextField(
-            labelText: "password",
-            onChanged: _viewModel.setPassword,
-            validator: _viewModel.validatePassword,
+          FormBuilderTextField(
+            name: 'Password',
+            decoration: InputDecoration(
+              labelText: 'Password',
+              errorText: _passwordErrorText,
+            ),
+            obscureText: true,
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: FormBuilderValidators.compose([
+              FormBuilderValidators.required(),
+              FormBuilderValidators.minLength(6),
+            ]),
           ),
-          CustomElevatedButton(
-            text: "Login",
-            onPressed: () {
-              if (_formKey.currentState!.validate()) {
-                _viewModel.login();
+          const SizedBox(height: 20),
+          MaterialButton(
+            color: Colors.blue,
+            textColor: Colors.white,
+            onPressed: () async {
+              if (_formKey.currentState?.saveAndValidate() ?? false) {
+                final email =
+                    _formKey.currentState?.fields['Email']?.value ?? '';
+                final password =
+                    _formKey.currentState?.fields['Password']?.value ?? '';
+                _viewModel.setEmail(email);
+                _viewModel.setPassword(password);
+                await _viewModel.login();
+                if (_viewModel.errorMessage != null) {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    SnackBar(content: Text(_viewModel.errorMessage!)),
+                  );
+                } else {
+                  ScaffoldMessenger.of(context).showSnackBar(
+                    const SnackBar(content: Text('Login Successful')),
+                  );
+                }
+              } else {
+                print(_emailErrorText);
+                print(_passwordErrorText);
+                ScaffoldMessenger.of(context).showSnackBar(
+                  const SnackBar(content: Text('Validation Failed')),
+                );
               }
             },
+            child: const Text('Login'),
           ),
         ],
       ),
