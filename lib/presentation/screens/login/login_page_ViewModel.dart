@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
-import 'package:flutter_application_2/core/utils/validator_utils.dart';
 import 'package:flutter_application_2/data/repositorie_impls/user_repository_impl.dart';
 import 'package:flutter_application_2/domain/entities/login_entitiy.dart';
 import 'package:flutter_application_2/domain/usecases/user_usecases/create_user_usecase.dart';
