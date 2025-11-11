@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_form_builder_textField.dart';
@@ -28,28 +29,67 @@ class _LoginPageView extends State<LoginPageView> {
   @override
   void dispose() {
     _viewModel.dispose();
+    _streamController.close();
     super.dispose();
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(body: _loginCard());
+    return Scaffold(body: _loginCard(MediaQuery.of(context).size));
   }
 
-  Widget _loginCard() {
+  late final StreamController<String> _streamController =
+      StreamController<String>(
+        onListen: () async {
+          await Future.delayed(const Duration(seconds: 5));
+          _streamController.sink.add('Hello Are You In There ?');
+          await Future.delayed(const Duration(seconds: 5));
+          _streamController.sink.add('Helloooo Please Respond !');
+          await Future.delayed(const Duration(seconds: 5));
+          _streamController.sink.add('Final Call !');
+          await Future.delayed(const Duration(seconds: 5));
+          _streamController.sink.add('Goodbye !');
+          _streamController.close();
+        },
+      );
+  Stream<String> get myStream => _streamController.stream;
+
+  Widget _loginCard(Size size) {
     return Center(
-      child: Container(
-        width: 300,
-        height: 340,
-        decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(20.0),
-          gradient: const LinearGradient(
-            colors: [Color.fromARGB(255, 80, 83, 82), Color(0xFF1976D2)],
-            begin: Alignment.topLeft,
-            end: Alignment.bottomRight,
-          ),
+      child: SingleChildScrollView(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            StreamBuilder(
+              stream: myStream,
+              builder: (context, snapshot) {
+                if (snapshot.hasError) {
+                  return Text('Error: ${snapshot.error}');
+                } else if (snapshot.connectionState ==
+                    ConnectionState.waiting) {
+                  return const Text('');
+                } else {
+                  return Text('${snapshot.data}');
+                }
+              },
+            ),
+
+            Container(
+              width: size.width * 0.80,
+              height: size.height * 0.5,
+              decoration: BoxDecoration(
+                borderRadius: BorderRadius.circular(size.width * 0.05),
+                gradient: const LinearGradient(
+                  colors: [Color.fromARGB(255, 80, 83, 82), Color(0xFF1976D2)],
+                  begin: Alignment.topLeft,
+                  end: Alignment.bottomRight,
+                ),
+              ),
+              child: Center(child: _loginForm()),
+            ),
+          ],
         ),
-        child: Center(child: _loginForm()),
       ),
     );
   }
@@ -91,11 +131,13 @@ class _LoginPageView extends State<LoginPageView> {
     String label,
     String? errorText,
   ) {
-    return CustomFormBuilderTextfield(
-      etiketMetni: label,
-      dogrulama: validator,
-      hataMetni: errorText,
-      gizliMetin: label == 'Password',
+    return Flexible(
+      child: CustomFormBuilderTextfield(
+        etiketMetni: label,
+        dogrulama: validator,
+        hataMetni: errorText,
+        gizliMetin: label == 'Password',
+      ),
     );
   }
 
