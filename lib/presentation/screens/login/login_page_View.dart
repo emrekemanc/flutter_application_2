@@ -38,6 +38,21 @@ class _LoginPageView extends State<LoginPageView> {
     return Scaffold(body: _loginCard(MediaQuery.of(context).size));
   }
 
+  StreamSubscription<String>? _subscription;
+  void listenToStream() {
+    _subscription = myStream.listen(
+      (data) {
+        print('Received data: $data');
+      },
+      onError: (error) {
+        print('Error: $error');
+      },
+      onDone: () {
+        print('Stream closed');
+      },
+    );
+  }
+
   late final StreamController<String> _streamController =
       StreamController<String>(
         onListen: () async {

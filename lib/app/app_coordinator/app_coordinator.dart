@@ -15,7 +15,7 @@ class Appcoordinator {
   Appcoordinator._internal();
 
   final GoRouter router = GoRouter(
-    initialLocation: RoutePaths.login,
+    initialLocation: RoutePaths.initial,
     routes: <GoRoute>[
       GoRoute(
         path: RoutePaths.home,
