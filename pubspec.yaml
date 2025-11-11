@@ -38,8 +38,9 @@ flutter_native_splash:
   android: true
   ios: true
   image: lib/core/assets/images/fire_icon.png
-  color: "#42a5f5"
+  color: "#FFFFFF"
 
   android_12:
-    color: "#42a5f5"
-    image: lib/core/assets/images/android12splash.png
+    color: "#FFFFFF"
+    image: lib/core/assets/images/Android12.png
+    icon_background_color: "#FFFFFF"
