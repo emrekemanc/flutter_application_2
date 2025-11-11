@@ -1,16 +1,17 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_form_builder/flutter_form_builder.dart';
 
-class CustomTextField extends StatelessWidget {
-  final String labelText;
-  final String? Function(String?)? validator;
-  final Function(String)? onChanged;
-  final bool obscureText;
+class CustomFormBuilderTextfield extends StatelessWidget {
+  final String etiketMetni;
+  final String? Function(String?)? dogrulama;
+  final bool gizliMetin;
+  final String? hataMetni;
 
-  const CustomTextField({
-    required this.labelText,
-    this.validator,
-    this.onChanged,
-    this.obscureText = false,
+  const CustomFormBuilderTextfield({
+    required this.etiketMetni,
+    this.dogrulama,
+    this.gizliMetin = false,
+    this.hataMetni,
     super.key,
   });
 
@@ -18,27 +19,26 @@ class CustomTextField extends StatelessWidget {
   Widget build(BuildContext context) {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
-      child: TextFormField(
+      child: FormBuilderTextField(
+        name: etiketMetni,
+        validator: dogrulama,
+        obscureText: gizliMetin,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(color: Colors.white, fontSize: 16),
-        obscureText: obscureText,
-        validator: validator,
-        onChanged: onChanged,
         cursorColor: Colors.white,
         decoration: InputDecoration(
-          labelText: labelText,
+          labelText: etiketMetni,
+          errorText: hataMetni,
           labelStyle: TextStyle(
             color: Colors.white.withOpacity(0.7),
             fontSize: 16,
           ),
-
           filled: true,
           fillColor: Colors.white.withOpacity(0.15),
-
           border: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: BorderSide.none,
           ),
-
           focusedBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(
@@ -46,17 +46,14 @@ class CustomTextField extends StatelessWidget {
               width: 0.5,
             ),
           ),
-
           errorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Colors.redAccent, width: 2.0),
           ),
-
           focusedErrorBorder: OutlineInputBorder(
             borderRadius: BorderRadius.circular(12),
             borderSide: const BorderSide(color: Colors.red, width: 2.5),
           ),
-
           contentPadding: const EdgeInsets.symmetric(
             vertical: 16.0,
             horizontal: 20.0,

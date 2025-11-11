@@ -12,6 +12,7 @@ class CustomElevatedButton extends StatelessWidget {
     required this.onPressed,
     this.backgroundColor = const Color.fromARGB(255, 27, 43, 223),
     this.foregroundColor = Colors.white,
+    required Widget child,
   });
 
   @override

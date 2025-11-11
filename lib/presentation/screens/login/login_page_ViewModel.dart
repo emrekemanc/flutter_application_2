@@ -28,7 +28,6 @@ class LoginPageViewModel extends ChangeNotifier {
 
   Future<void> login() async {
     try {
-      await Future.delayed(const Duration(seconds: 1));
       _errorMessage = null;
       final response = await _createUserUsecase.call(
         _formData.email.toString(),

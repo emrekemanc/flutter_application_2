@@ -65,7 +65,7 @@ class Appcoordinator {
   }
 
   Future<void> navigateToMain() async {
-    await router.push(RoutePaths.home);
+    await router.pushReplacement(RoutePaths.home);
   }
 
   Future<void> navigateToSplash() async {
