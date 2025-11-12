@@ -1,6 +1,5 @@
 class LoginEntitiy {
+  LoginEntitiy({this.email, this.password});
   String? email;
   String? password;
-
-  LoginEntitiy({this.email, this.password});
 }

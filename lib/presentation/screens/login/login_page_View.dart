@@ -24,10 +24,13 @@ class _LoginPageView extends State<LoginPageView> {
   void initState() {
     super.initState();
     _viewModel = LoginPageViewModel(Appcoordinator());
+    _startStreamMessages();
   }
 
   @override
   void dispose() {
+    _subscription?.cancel();
+
     _viewModel.dispose();
     _streamController.close();
     super.dispose();
@@ -54,20 +57,24 @@ class _LoginPageView extends State<LoginPageView> {
   }
 
   late final StreamController<String> _streamController =
-      StreamController<String>(
-        onListen: () async {
-          await Future.delayed(const Duration(seconds: 5));
-          _streamController.sink.add('Hello Are You In There ?');
-          await Future.delayed(const Duration(seconds: 5));
-          _streamController.sink.add('Helloooo Please Respond !');
-          await Future.delayed(const Duration(seconds: 5));
-          _streamController.sink.add('Final Call !');
-          await Future.delayed(const Duration(seconds: 5));
-          _streamController.sink.add('Goodbye !');
-          _streamController.close();
-        },
-      );
+      StreamController<String>();
   Stream<String> get myStream => _streamController.stream;
+
+  Future<void> _startStreamMessages() async {
+    final messages = [
+      'Hello Are You In There ?',
+      'Helloooo Please Respond !',
+      'Final Call !',
+      'Goodbye !',
+    ];
+
+    for (var msg in messages) {
+      await Future<void>.delayed(const Duration(seconds: 5));
+      if (!mounted || _streamController.isClosed) return;
+      _streamController.add(msg);
+    }
+    await _streamController.close();
+  }
 
   Widget _loginCard(Size size) {
     return Center(
@@ -179,30 +186,30 @@ class _LoginPageView extends State<LoginPageView> {
     );
   }
 
-  void _onLoginPressed() {
-    if (_formKey.currentState?.saveAndValidate() ?? false) {
-      final email = _formKey.currentState?.fields['Email']?.value ?? '';
-      final password = _formKey.currentState?.fields['Password']?.value ?? '';
-
-      _viewModel.setEmail(email);
-      _viewModel.setPassword(password);
-
-      setState(() {
-        _loginFuture = _viewModel.login();
-        if (!mounted) return;
-        _loginFuture!
-            .then((_) {
-              _showSnackBar(context, 'Login successful!');
-            })
-            .catchError((error) {
-              _showSnackBar(
-                context,
-                _viewModel.errorMessage ?? 'Login failed.',
-              );
-            });
-      });
-    } else {
+  Future<void> _onLoginPressed() async {
+    if (!(_formKey.currentState?.saveAndValidate() ?? false)) {
       _showSnackBar(context, 'Validation failed. Please check your input.');
+      return;
+    }
+
+    final email = _formKey.currentState?.fields['Email']?.value as String;
+    final password = _formKey.currentState?.fields['Password']?.value as String;
+
+    _viewModel
+      ..setEmail(email)
+      ..setPassword(password);
+
+    setState(() {
+      _loginFuture = _viewModel.login();
+    });
+
+    try {
+      await _loginFuture;
+      if (!mounted) return;
+      _showSnackBar(context, 'Login successful!');
+    } catch (e) {
+      if (!mounted) return;
+      _showSnackBar(context, _viewModel.errorMessage ?? 'Login failed.');
     }
   }
 

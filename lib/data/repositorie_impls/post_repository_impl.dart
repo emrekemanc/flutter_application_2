@@ -7,6 +7,10 @@ class PostRepositoryImpl implements PostRepository {
   @override
   Future<List<PostEntitiy>> getPosts() async {
     final data = await _service.getPosts();
-    return data.map<PostEntitiy>((json) => PostEntitiy.fromJson(json)).toList();
+    return data
+        .map<PostEntitiy>(
+          (json) => PostEntitiy.fromJson(json as Map<String, dynamic>),
+        )
+        .toList();
   }
 }

@@ -9,7 +9,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<List<ProductEntitiy>> getAllProducts() async {
     final data = await _service.getAllProducts();
     return data
-        .map<ProductEntitiy>((json) => ProductEntitiy.fromJson(json))
+        .map<ProductEntitiy>(
+          (json) => ProductEntitiy.fromJson(json as Map<String, dynamic>),
+        )
         .toList();
   }
 
@@ -23,7 +25,9 @@ class ProductRepositoryImpl implements ProductRepository {
   Future<List<ProductEntitiy>> getProductsByCategory(String category) async {
     final data = await _service.getProductsByCategory(category);
     return data
-        .map<ProductEntitiy>((json) => ProductEntitiy.fromJson(json))
+        .map<ProductEntitiy>(
+          (json) => ProductEntitiy.fromJson(json as Map<String, dynamic>),
+        )
         .toList();
   }
 }

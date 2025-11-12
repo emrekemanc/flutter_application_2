@@ -35,11 +35,11 @@ class _IntroScreenView extends State<IntroScreenView> {
   Appcoordinator appcoordinator = Appcoordinator();
 
   void _goNextPage() {
-    setState(() {
+    setState(() async {
       if (_currentPage < 2) {
         _currentPage = _currentPage + 1;
       } else if (_currentPage == 2) {
-        appcoordinator.navigateToLogin();
+        await appcoordinator.navigateToLogin();
       }
     });
   }
@@ -54,7 +54,7 @@ class _IntroScreenView extends State<IntroScreenView> {
         color: introPage['color'] as Color,
         child: Center(
           child: Padding(
-            padding: const EdgeInsets.all(32.0),
+            padding: const EdgeInsets.all(32),
             child: AnimatedSwitcher(
               duration: const Duration(milliseconds: 700),
               child: Column(
@@ -63,21 +63,21 @@ class _IntroScreenView extends State<IntroScreenView> {
                 children: [
                   Icon(
                     introPage['icon'] as IconData,
-                    size: 100.0,
+                    size: 100,
                     color: Colors.white,
                   ),
-                  const SizedBox(height: 30.0),
+                  const SizedBox(height: 30),
                   Text(
                     introPage['title'] as String,
                     textAlign: TextAlign.center,
                     style: const TextStyle(
                       color: Colors.white,
-                      fontSize: 28.0,
+                      fontSize: 28,
                       fontWeight: FontWeight.bold,
                     ),
                   ),
-                  SizedBox(height: 15.0),
-                  _descriptionText(introPage['description']),
+                  const SizedBox(height: 15),
+                  _descriptionText(introPage['description'] as String),
                 ],
               ),
             ),
@@ -88,9 +88,7 @@ class _IntroScreenView extends State<IntroScreenView> {
       floatingActionButton: Padding(
         padding: const EdgeInsets.all(20),
         child: ElevatedButton(
-          onPressed: () {
-            _goNextPage();
-          },
+          onPressed: _goNextPage,
           style: ElevatedButton.styleFrom(
             backgroundColor: Colors.white,
             padding: const EdgeInsets.symmetric(horizontal: 40, vertical: 15),

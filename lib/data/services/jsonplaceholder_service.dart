@@ -1,12 +1,13 @@
+import 'package:dio/dio.dart';
 import 'package:flutter_application_2/data/services/dio_client.dart';
 
 class JsonplaceholderService {
-  final _dio = DioClient.dio;
+  final Dio _dio = DioClient.dio;
 
   Future<List<dynamic>> getPosts() async {
-    final response = await _dio.get(
+    final response = await _dio.get<dynamic>(
       'https://jsonplaceholder.typicode.com/posts',
     );
-    return response.data;
+    return response.data as List<dynamic>;
   }
 }

@@ -3,18 +3,18 @@ import 'package:permission_handler/permission_handler.dart';
 
 class PermissionService {
   Future<PermissionStatus> requestPermission(Permission permission) async {
-    return await permission.request();
+    return permission.request();
   }
 
   Future<bool> permissionHandler(
     BuildContext context,
     Permission permission,
   ) async {
-    PermissionStatus status = await requestPermission(permission);
+    final status = await requestPermission(permission);
     if (status.isGranted) {
-      print("true");
       return true;
     } else if (status.isDenied) {
+      if (!context.mounted) return false;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -22,8 +22,9 @@ class PermissionService {
           ),
         ),
       );
-      permission.request();
+      await permission.request();
     } else if (status.isPermanentlyDenied) {
+      if (!context.mounted) return false;
       ScaffoldMessenger.of(context).showSnackBar(
         SnackBar(
           content: Text(
@@ -31,7 +32,7 @@ class PermissionService {
           ),
         ),
       );
-      await Future.delayed(const Duration(seconds: 2));
+      await Future<void>.delayed(const Duration(seconds: 2));
       await openAppSettings();
     }
     return false;
