@@ -1,4 +1,5 @@
 import 'dart:async';
+import 'package:easy_localization/easy_localization.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_form_builder_textField.dart';
@@ -124,22 +125,30 @@ class _LoginPageView extends State<LoginPageView> {
         children: [
           _formBuilderTextField(
             FormBuilderValidators.compose([
-              FormBuilderValidators.required(errorText: 'Email is required'),
-              FormBuilderValidators.email(errorText: 'Invalid email address'),
+              FormBuilderValidators.required(
+                errorText: 'login.email_required'.tr(),
+              ),
+              FormBuilderValidators.email(
+                errorText: 'login.invalid_email'.tr(),
+              ),
             ]),
-            'Email',
+            'login.email'.tr(),
             _emailErrorText,
+            false,
           ),
           _formBuilderTextField(
             FormBuilderValidators.compose([
-              FormBuilderValidators.required(errorText: 'Password is required'),
+              FormBuilderValidators.required(
+                errorText: 'login.password_required'.tr(),
+              ),
               FormBuilderValidators.minLength(
                 6,
-                errorText: 'Password must be at least 6 characters',
+                errorText: 'login.password_min_length'.tr(),
               ),
             ]),
-            'Password',
+            'login.password'.tr(),
             _passwordErrorText,
+            true,
           ),
           const SizedBox(height: 20),
           _futureLoginButton(),
@@ -152,13 +161,14 @@ class _LoginPageView extends State<LoginPageView> {
     FormFieldValidator<String> validator,
     String label,
     String? errorText,
+    bool isPassword,
   ) {
     return Flexible(
       child: CustomFormBuilderTextfield(
-        etiketMetni: label,
-        dogrulama: validator,
-        hataMetni: errorText,
-        gizliMetin: label == 'Password',
+        title: label,
+        validator: validator,
+        errorText: errorText,
+        scretText: isPassword,
       ),
     );
   }
@@ -180,36 +190,43 @@ class _LoginPageView extends State<LoginPageView> {
                     color: Colors.blueAccent,
                   ),
                 )
-              : const Text('Login', style: TextStyle(fontSize: 16)),
+              : Text(
+                  'login.login_button'.tr(),
+                  style: const TextStyle(fontSize: 16),
+                ),
         );
       },
     );
   }
 
-  Future<void> _onLoginPressed() async {
-    if (!(_formKey.currentState?.saveAndValidate() ?? false)) {
-      _showSnackBar(context, 'Validation failed. Please check your input.');
-      return;
-    }
+  void _onLoginPressed() {
+    if (_formKey.currentState?.saveAndValidate() ?? false) {
+      final email =
+          _formKey.currentState?.fields['login.email'.tr()]?.value as String;
+      final password =
+          _formKey.currentState?.fields['login.password'.tr()]?.value as String;
 
-    final email = _formKey.currentState?.fields['Email']?.value as String;
-    final password = _formKey.currentState?.fields['Password']?.value as String;
+      _viewModel
+        ..setEmail(email)
+        ..setPassword(password);
 
-    _viewModel
-      ..setEmail(email)
-      ..setPassword(password);
-
-    setState(() {
-      _loginFuture = _viewModel.login();
-    });
-
-    try {
-      await _loginFuture;
-      if (!mounted) return;
-      _showSnackBar(context, 'Login successful!');
-    } catch (e) {
-      if (!mounted) return;
-      _showSnackBar(context, _viewModel.errorMessage ?? 'Login failed.');
+      setState(() {
+        _loginFuture = _viewModel.login();
+        _loginFuture!
+            .then((_) {
+              if (!mounted) return;
+              _showSnackBar(context, 'login.login_success'.tr());
+            })
+            .catchError((error) {
+              if (!mounted) return;
+              _showSnackBar(
+                context,
+                _viewModel.errorMessage ?? 'login.login_failed'.tr(),
+              );
+            });
+      });
+    } else {
+      _showSnackBar(context, 'login.validation_failed'.tr());
     }
   }
 

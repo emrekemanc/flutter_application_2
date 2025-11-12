@@ -2,16 +2,16 @@ import 'package:flutter/material.dart';
 import 'package:flutter_form_builder/flutter_form_builder.dart';
 
 class CustomFormBuilderTextfield extends StatelessWidget {
-  final String etiketMetni;
-  final String? Function(String?)? dogrulama;
-  final bool gizliMetin;
-  final String? hataMetni;
+  final String title;
+  final String? Function(String?)? validator;
+  final bool scretText;
+  final String? errorText;
 
   const CustomFormBuilderTextfield({
-    required this.etiketMetni,
-    this.dogrulama,
-    this.gizliMetin = false,
-    this.hataMetni,
+    required this.title,
+    this.validator,
+    this.scretText = false,
+    this.errorText,
     super.key,
   });
 
@@ -20,15 +20,15 @@ class CustomFormBuilderTextfield extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.symmetric(vertical: 15.0, horizontal: 16.0),
       child: FormBuilderTextField(
-        name: etiketMetni,
-        validator: dogrulama,
-        obscureText: gizliMetin,
+        name: title,
+        validator: validator,
+        obscureText: scretText,
         autovalidateMode: AutovalidateMode.onUserInteraction,
         style: const TextStyle(color: Colors.white, fontSize: 16),
         cursorColor: Colors.white,
         decoration: InputDecoration(
-          labelText: etiketMetni,
-          errorText: hataMetni,
+          labelText: title,
+          errorText: errorText,
           labelStyle: TextStyle(
             color: Colors.white.withOpacity(0.7),
             fontSize: 16,

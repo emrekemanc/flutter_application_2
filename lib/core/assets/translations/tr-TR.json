@@ -1,0 +1,36 @@
+{
+  "login": {
+    "title": "Giriş",
+    "email": "E-posta",
+    "password": "Şifre",
+    "login_button": "Giriş Yap",
+    "email_required": "E-posta gereklidir",
+    "invalid_email": "Geçersiz e-posta adresi",
+    "password_required": "Şifre gereklidir",
+    "password_min_length": "Şifre en az 6 karakter olmalıdır",
+    "login_success": "Giriş başarılı!",
+    "login_failed": "Giriş başarısız. Lütfen tekrar deneyin.",
+    "validation_failed": "Doğrulama başarısız. Lütfen bilgilerinizi kontrol edin.",
+    "forgot_password": "Şifremi Unuttum?",
+    "signup_prompt": "Hesabınız yok mu? Kayıt olun"
+  },
+  "settings": {
+    "title": "Ayarlar Sayfası",
+    "icon_title": "Ayarlar",
+    "icon_description": "Tercihlerinizi buradan ayarlayın.",
+    "logout_button": "Çıkış Yap"
+  },
+  "list": {
+    "title": "Liste Sayfası",
+    "icon_title": "Liste",
+    "icon_description": "Öğelerinizi buradan görüntüleyin."
+  },
+  "profile": {
+    "title": "Profil Sayfası",
+    "icon_title": "Profil",
+    "icon_description": "Profil bilgilerinizi buradan yönetin."
+  }
+  
+
+
+}
