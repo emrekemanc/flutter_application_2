@@ -10,7 +10,7 @@ void main() async {
   runApp(
     EasyLocalization(
       supportedLocales: const [Locale('en', 'US'), Locale('tr', 'TR')],
-      path: 'lib/core/assets/translations',
+      path: 'lib/core/assets/translations/',
       assetLoader: const JsonAssetLoader(),
       child: MainApp(),
     ),

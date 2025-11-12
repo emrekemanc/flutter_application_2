@@ -21,13 +21,14 @@ dependencies:
   json_annotation: ^4.9.0
   permission_handler: ^12.0.1
   easy_localization: ^3.0.8
+  easy_localization_loader: ^2.0.2
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
   freezed: ^3.2.3
   json_serializable: ^6.11.1
-  build_runner: ^2.10.1
+  build_runner: ^2.10.2
   very_good_analysis: ^10.0.0
 
 flutter:
@@ -35,6 +36,7 @@ flutter:
   assets:
     - lib/core/assets/images/fire_icon.png
     - lib/core/assets/images/android12splash.png
+    - lib/core/assets/translations/
 
 flutter_native_splash:
   android: true
