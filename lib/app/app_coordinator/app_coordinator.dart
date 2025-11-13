@@ -65,19 +65,19 @@ class Appcoordinator {
   }
 
   Future<void> navigateToMain() async {
-    await router.pushReplacement(RoutePaths.home);
+    router.go(RoutePaths.home);
   }
 
   Future<void> navigateToSplash() async {
-    await router.push(RoutePaths.splash);
+    router.go(RoutePaths.splash);
   }
 
   Future<void> navigateToIntro() async {
-    await router.push(RoutePaths.intro);
+    router.go(RoutePaths.intro);
   }
 
   Future<void> navigateToLogin() async {
-    await router.push(RoutePaths.login);
+    router.go(RoutePaths.login);
   }
 
   void goBack() {

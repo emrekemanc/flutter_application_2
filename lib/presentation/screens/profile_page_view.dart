@@ -3,8 +3,8 @@ import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_button.dart';
 
 class ProfilePageView extends StatelessWidget {
-  final appcoordinator = Appcoordinator();
   ProfilePageView({super.key});
+  final appcoordinator = Appcoordinator();
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +15,14 @@ class ProfilePageView extends StatelessWidget {
           CustomIconButton(
             icon: Icons.home,
 
-            onPressed: () {
-              appcoordinator.navigateToMain();
-            },
+            onPressed: appcoordinator.navigateToMain,
           ),
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             CircleAvatar(
               radius: 50,
               child: Icon(Icons.person, size: 50, color: Colors.white),

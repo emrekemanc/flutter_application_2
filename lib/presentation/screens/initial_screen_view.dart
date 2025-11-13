@@ -19,7 +19,7 @@ class _InitialScreenState extends State<InitialScreen> {
   void initState() {
     super.initState();
     WidgetsBinding.instance.addPostFrameCallback((_) async {
-      bool granted = await _permissionService.permissionHandler(
+      final granted = await _permissionService.permissionHandler(
         context,
         Permission.camera,
       );
@@ -30,15 +30,15 @@ class _InitialScreenState extends State<InitialScreen> {
   }
 
   Future<void> _checkIntroShowed() async {
-    SharedPreferences preferences = await SharedPreferences.getInstance();
-    bool seen = (preferences.getBool('seen') ?? false);
+    final preferences = await SharedPreferences.getInstance();
+    final seen = preferences.getBool('seen') ?? false;
 
     if (mounted) {
       if (seen) {
-        appcoordinator.navigateToLogin();
+        await appcoordinator.navigateToLogin();
       } else {
         await preferences.setBool('seen', true);
-        appcoordinator.navigateToIntro();
+        await appcoordinator.navigateToIntro();
       }
     }
   }

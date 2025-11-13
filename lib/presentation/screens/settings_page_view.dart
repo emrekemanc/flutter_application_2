@@ -3,8 +3,8 @@ import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_button.dart';
 
 class Settingspageview extends StatelessWidget {
-  final appcoordinator = Appcoordinator();
   Settingspageview({super.key});
+  final appcoordinator = Appcoordinator();
 
   @override
   Widget build(BuildContext context) {
@@ -15,16 +15,14 @@ class Settingspageview extends StatelessWidget {
           CustomIconButton(
             icon: Icons.home,
 
-            onPressed: () {
-              appcoordinator.navigateToMain();
-            },
+            onPressed: appcoordinator.navigateToMain,
           ),
         ],
       ),
-      body: Center(
+      body: const Center(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
-          children: const [
+          children: [
             Icon(Icons.settings, size: 100),
             SizedBox(height: 20),
             Text(
@@ -32,7 +30,7 @@ class Settingspageview extends StatelessWidget {
               style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
             ),
             SizedBox(height: 10),
-            Text("Adjust your preferences here."),
+            Text('Adjust your preferences here.'),
           ],
         ),
       ),

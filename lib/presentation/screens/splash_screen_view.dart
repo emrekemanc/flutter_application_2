@@ -51,7 +51,7 @@ class _SplashScreenViewState extends State<SplashScreenView> {
     }
   }
 
-  _navigateToNext() async {
+  Future<void> _navigateToNext() async {
     await Future.delayed(const Duration(seconds: 3), () {});
     appcoordinator.navigateToMain();
   }

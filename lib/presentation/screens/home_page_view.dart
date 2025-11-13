@@ -20,23 +20,17 @@ class HomePageView extends StatelessWidget {
                   children: [
                     CustomIconButton(
                       icon: Icons.settings,
-                      onPressed: () {
-                        appcoordinator.navigateToSettings();
-                      },
+                      onPressed: appcoordinator.navigateToSettings,
                     ),
                     CustomIconButton(
                       icon: Icons.list,
 
-                      onPressed: () {
-                        appcoordinator.navigateToList();
-                      },
+                      onPressed: appcoordinator.navigateToList,
                     ),
                     CustomIconButton(
                       icon: Icons.verified_user,
 
-                      onPressed: () {
-                        appcoordinator.navigateToProfile();
-                      },
+                      onPressed: appcoordinator.navigateToProfile,
                     ),
                   ],
                 ),

@@ -5,6 +5,7 @@ import 'package:flutter_application_2/domain/entities/login_entitiy.dart';
 import 'package:flutter_application_2/domain/usecases/user_usecases/create_user_usecase.dart';
 
 class LoginPageViewModel extends ChangeNotifier {
+  LoginPageViewModel(this._appCoordinator);
   final LoginEntitiy _formData = LoginEntitiy();
   final CreateUserUsecase _createUserUsecase = CreateUserUsecase(
     UserRepositoryImpl(),
@@ -12,8 +13,6 @@ class LoginPageViewModel extends ChangeNotifier {
   final Appcoordinator _appCoordinator;
 
   String? _errorMessage;
-
-  LoginPageViewModel(this._appCoordinator);
 
   LoginEntitiy get formData => _formData;
   String? get errorMessage => _errorMessage;
@@ -23,7 +22,7 @@ class LoginPageViewModel extends ChangeNotifier {
   }
 
   void setPassword(String value) {
-    _formData.password = value;
+    _formData.password = value.trim();
   }
 
   Future<void> login() async {
@@ -31,7 +30,7 @@ class LoginPageViewModel extends ChangeNotifier {
       _errorMessage = null;
       final response = await _createUserUsecase.call(
         _formData.email.toString(),
-        "dev",
+        'dev',
       );
       _appCoordinator.navigateToMain();
       print(response.name);

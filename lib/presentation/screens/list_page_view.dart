@@ -3,8 +3,8 @@ import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/presentation/customs/custom_button.dart';
 
 class ListPageView extends StatelessWidget {
-  final appcoordinator = Appcoordinator();
   ListPageView({super.key});
+  final appcoordinator = Appcoordinator();
 
   @override
   Widget build(BuildContext context) {
@@ -15,9 +15,7 @@ class ListPageView extends StatelessWidget {
           CustomIconButton(
             icon: Icons.home,
 
-            onPressed: () {
-              appcoordinator.navigateToMain();
-            },
+            onPressed: appcoordinator.navigateToMain,
           ),
         ],
       ),
