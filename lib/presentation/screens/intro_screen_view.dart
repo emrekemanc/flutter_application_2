@@ -35,11 +35,11 @@ class _IntroScreenView extends State<IntroScreenView> {
   Appcoordinator appcoordinator = Appcoordinator();
 
   void _goNextPage() {
-    setState(() async {
+    setState(() {
       if (_currentPage < 2) {
         _currentPage = _currentPage + 1;
       } else if (_currentPage == 2) {
-        await appcoordinator.navigateToLogin();
+        appcoordinator.navigateToLogin();
       }
     });
   }
