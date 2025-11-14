@@ -1,13 +1,13 @@
+import 'package:flutter_application_2/app/app_coordinator/route_paths.dart';
+import 'package:flutter_application_2/presentation/screens/home_page_view.dart';
 import 'package:flutter_application_2/presentation/screens/initial_screen_view.dart';
 import 'package:flutter_application_2/presentation/screens/intro_screen_view.dart';
+import 'package:flutter_application_2/presentation/screens/list_page_view.dart';
 import 'package:flutter_application_2/presentation/screens/login/login_page_View.dart';
-import '../../presentation/screens/home_page_view.dart';
-import '../../presentation/screens/splash_screen_view.dart';
-import '../../presentation/screens/settings_page_view.dart';
-import '../../presentation/screens/profile_page_view.dart';
-import '../../presentation/screens/list_page_view.dart';
+import 'package:flutter_application_2/presentation/screens/profile_page_view.dart';
+import 'package:flutter_application_2/presentation/screens/settings_page_view.dart';
+import 'package:flutter_application_2/presentation/screens/splash_screen_view.dart';
 import 'package:go_router/go_router.dart';
-import 'route_paths.dart';
 
 class Appcoordinator {
   static final Appcoordinator _instance = Appcoordinator._internal();

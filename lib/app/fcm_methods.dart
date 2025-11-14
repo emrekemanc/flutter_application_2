@@ -1,9 +1,12 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:firebase_messaging/firebase_messaging.dart';
 import 'package:flutter/foundation.dart';
+import 'package:flutter_application_2/data/services/notification_service.dart';
 import 'package:rxdart/rxdart.dart';
 
+@pragma('vm:entry-point')
 Future<void> _firebaseMessagingBackgroundHandler(RemoteMessage message) async {
+  // Initialize Firebase for background execution
   await Firebase.initializeApp();
 
   if (kDebugMode) {
@@ -43,6 +46,7 @@ class FCMMethods {
         print('Notification permission not determined.');
       }
     }
+
     messaging.getToken().then((value) => debugPrint('FCM Token: $value'));
 
     messaging.onTokenRefresh.listen((fcmToken) {
@@ -51,11 +55,24 @@ class FCMMethods {
       }
     });
 
+    // CRITICAL FIX: Listener is NOT async and does not use await internally.
     FirebaseMessaging.onMessage.listen((RemoteMessage msg) {
       if (kDebugMode) {
         print('Handling a foreground message: ${msg.messageId}');
-        print('Message notification: ${msg.notification?.title}');
-        print('Message notification: ${msg.notification?.body}');
+      }
+
+      final notification = msg.notification;
+      final data = msg.data;
+
+      if (notification != null) {
+        // Show local notification using data from FCM. (Fire-and-forget)
+        NotificationService().showInstantNotification(
+          id: notification.hashCode,
+          title: notification.title ?? 'New Notification',
+          body: notification.body ?? 'Check your app for details.',
+          // Payload güvenli bir şekilde String'e dönüştürülür (Crash önlenir)
+          payload: data['payload']?.toString() ?? data.toString(),
+        );
       }
       messageStreamController.sink.add(msg);
     });
