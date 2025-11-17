@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_application_2/app/app_coordinator/app_coordinator.dart';
 import 'package:flutter_application_2/data/repositorie_impls/user_repository_impl.dart';
+import 'package:flutter_application_2/data/services/core_database_service.dart';
 import 'package:flutter_application_2/domain/entities/login_entitiy.dart';
 import 'package:flutter_application_2/domain/usecases/user_usecases/create_user_usecase.dart';
 
@@ -11,6 +12,7 @@ class LoginPageViewModel extends ChangeNotifier {
     UserRepositoryImpl(),
   );
   final Appcoordinator _appCoordinator;
+  final CoreDatabaseService _coreDatabaseService = CoreDatabaseService();
 
   String? _errorMessage;
 
@@ -33,7 +35,11 @@ class LoginPageViewModel extends ChangeNotifier {
         'dev',
       );
       _appCoordinator.navigateToMain();
-      print(response.name);
+      final _id = await _coreDatabaseService.insertDatabase({
+        'name': response.name,
+        'job': response.job,
+      });
+      print(_id);
     } catch (e) {
       _errorMessage = 'Login failed. Please try again.';
       notifyListeners();
